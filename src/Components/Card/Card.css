@@ -1,0 +1,26 @@
+.card-info-header {
+    border: 2px solid #30363d;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+    background-color: #282a2e;
+    padding: 0.5rem 1rem;
+
+}
+.card-info-body {
+    border: 2px solid #30363d;
+    border-top: 0;
+    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    padding: 0.5rem 1rem;
+}
+
+.card-info {
+    margin: 1rem 0.3rem;
+    border-radius: 0.75rem;
+    transition: 0.17s ease-in-out;
+}
+
+.card-info:hover {
+    box-shadow: rgba(105, 96, 96, 0.35) 0px 5px 15px;
+    cursor: pointer;
+}
