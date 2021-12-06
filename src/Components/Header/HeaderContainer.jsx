@@ -8,11 +8,10 @@ const HeaderContainer = () => {
         <div>
             <Navbar bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand>Navbar</Navbar.Brand>
+                    <Navbar.Brand onClick={() => history.push('/home')}>Hello</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link onClick={() => history.push('/home')}>Home</Nav.Link>
                         <Nav.Link onClick={() => history.push('/autoparks')}>Autoparks</Nav.Link>
-                        <Nav.Link onClick={() => history.push('/booking')}>Book a car</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
