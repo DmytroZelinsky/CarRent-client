@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
 import Card from '../../Components/Card/Card'
 import { getAllAutoParks } from '../../Api/autoParkApi';
@@ -7,22 +8,23 @@ const AutoParks = () => {
 
 
     const [autoParks, setAutoParks] = useState<AutoParkView[]>([]);
-    const fetchAllAutoParks = async () =>{
-        const res = (await getAllAutoParks()).data
-        console.log(res)
-        setAutoParks(res)
-    }
+    const history = useHistory()
     useEffect(() => {
         fetchAllAutoParks()
     },[])
 
+    const fetchAllAutoParks = async () =>{
+        const res = (await getAllAutoParks()).data
+        setAutoParks(res)
+    }
+    
     return (
         <>
             <Container>
                 <Row>
                     {autoParks.map(x => (
                         <Col lg={3} md={4} sm={6} xs={12}>
-                            <Card onClick={() => console.log(x.autoParkId)}>
+                            <Card onClick={() => history.push(`autopark/${x.autoParkId}`)}>
                                 <Card.Header>
                                     {x.address.city}
                                 </Card.Header>
