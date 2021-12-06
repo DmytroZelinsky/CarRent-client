@@ -1,0 +1,36 @@
+.rental-option-container {
+    background-color: rgb(12, 71, 12);
+    padding: 0.75rem 1rem 0.75rem 1rem;
+    margin: 0.5rem;
+
+}
+
+.chosen-car-display {
+    background-color: rgb(12, 71, 12);
+    padding: 0.75rem 1rem 0.75rem 1rem;
+    margin: 0.5rem;
+}
+
+.options-container {
+    background-color: rgb(11, 39, 33);
+}
+
+input:checked + .option-check-box-label {
+    background-color: rgb(12, 71, 12);
+}
+.option-check-box-label {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(94, 56, 75);
+    padding-left: 1rem;
+}
+
+.option-check-box {
+    position: absolute;
+    display: none;
+}
+
+.option-item {
+    margin: 0.5rem 0;
+    height: 3rem;
+}
