@@ -1,6 +1,12 @@
 import React from 'react';
 import '../Card/Card.css'
-const Card = ({ children, onClick }) => {
+
+type Props = {
+    onClick?: React.MouseEventHandler<HTMLDivElement> | undefined,
+    children : any
+}
+
+const Card = ({ children, onClick } : Props) => {
     let subComponentList = Object.keys(Card);
 
     let subComponents = subComponentList.map((key) => {
@@ -18,10 +24,13 @@ const Card = ({ children, onClick }) => {
     );
 };
 
-const Header = (props) => <div className='card-info-header'>{props.children}</div>;
+const Header = (props : any) => <div className='card-info-header'><p style={{fontSize:'24px', margin:'0'}}><b>{props.children}</b></p></div>;
 Card.Header = Header;
 
-const Body = (props) => <div className='card-info-body'>{props.children}</div>;
+const Body = (props : any) => <div className='card-info-body'>{props.children}</div>;
 Card.Body = Body;
+
+const Footer = (props: any) => <div className='card-footer'>{props.children}</div>;
+Card.Footer = Footer;
 
 export default Card;
