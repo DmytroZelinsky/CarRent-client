@@ -1,15 +1,15 @@
 import Class from "../Enums/Class";
-import CarServiceView from "./CarServiceView";
+import CarRentInfoView from "./CarServiceView";
 
 export default class CarView {
     carId : number;
     type : string;
     engineVolume: number;
-    geerbox: string;
-    fuelType: string;
-    driveType: string;
+    geerbox: number;
+    fuelType: number;
+    driveType: number;
     brand: string;
-    carService: CarServiceView;
+    carRentInfo: CarRentInfoView;
     vin: string;
     model: string;
     class: Class;
@@ -18,11 +18,11 @@ export default class CarView {
         this.carId = 0;
         this.type = '';
         this.engineVolume = 0;
-        this.geerbox = '';
-        this.fuelType = '';
-        this.driveType = '';
+        this.geerbox = 0;
+        this.fuelType = 0;
+        this.driveType = 0;
         this.brand = '';
-        this.carService = new CarServiceView();
+        this.carRentInfo = new CarRentInfoView();
         this.vin= '';
         this.model = '';
         this.class = 0;

@@ -10,7 +10,7 @@ import {
 import AutoParks from './Pages/AutoParks/AutoParks';
 import AutoPark from './Pages/AutoPark/AutoPark';
 import Booking from './Pages/Booking/Booking';
-import Home from './Pages/AutoPark/Home/Home';
+import Home from './Pages/Home/Home';
 
 function App() {
   return (

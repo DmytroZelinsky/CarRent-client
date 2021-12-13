@@ -10,6 +10,8 @@ import '../AutoPark/AutoPark.css'
 import AutoParkView from '../../Views/AutoParkView';
 import RentalOptionForm from '../../Components/Booking/RentalOptionForm/RentalOptionForm';
 import { deleteCar } from '../../Api/carApi';
+import FuelType from '../../Enums/FuelType';
+import Geerbox from '../../Enums/Geerbox';
 const AutoPark = () => {
     const [cars, setCars] = useState<CarView[]>([])
     const [autoPark, setAutoPark] = useState<AutoParkView>(new AutoParkView())
@@ -49,10 +51,10 @@ const AutoPark = () => {
                                             <Button onClick={() => handleDelete(x.carId)} variant='danger'>Delete</Button>
                                         </Card.Header>
                                         <Card.Body>
-                                            <p style={{fontSize:'12px', margin:'0'}}>{x.engineVolume} / {x.fuelType} / {x.geerbox}</p>
+                                            <p style={{fontSize:'12px', margin:'0'}}>{x.engineVolume} / {FuelType[x.fuelType]} / {Geerbox[x.geerbox]}</p>
                                             <Badge bg="secondary">{Class[x.class]}</Badge>
                                             <Image className={'car-image'} src={carPic}></Image>
-                                            <h1><b>{x.carService.pricePerDay}$</b></h1>
+                                            <h1><b>{x.carRentInfo.pricePerDay}$</b></h1>
                                             <h6>for a day</h6>
                                             <Button onClick={() => {setShow(!show); setSeletedCar(x)}} style={{margin:'2rem 0 1rem 0'}} variant="secondary" size="lg">Book the car</Button>{' '}
                                         </Card.Body>
