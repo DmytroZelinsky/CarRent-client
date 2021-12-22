@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Container, Form, Row, Col, Button } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import BookingDTO from '../../../DTOs/BookingDTO'
-import ClientServiceDTO from '../../../DTOs/ClientServiceDTO'
 import AddressView from '../../../Views/AddressView'
 import CarView from '../../../Views/CarView'
 
@@ -15,10 +14,7 @@ const RentalOptionForm = ({receivingAddress, car} : Props) => {
     const history = useHistory()
 
     const [booking, setBooking] = useState<BookingDTO>({ 
-        receivingAddressId : receivingAddress?.addressId,
-        receivingAddress : receivingAddress?.city + ' ' + receivingAddress?.addressName + ' ' + receivingAddress?.addressNumber,
-        clientService: new ClientServiceDTO(),
-        car : car 
+        receivingAddressId : receivingAddress?.addressId
     } as BookingDTO) 
 
     const exampleAddresses : AddressView[] = 
@@ -44,7 +40,6 @@ const RentalOptionForm = ({receivingAddress, car} : Props) => {
                         <Form.Group className="mb-3" >
                             <Form.Label>Receiving</Form.Label>
                             <Form.Select 
-                            onChange={(e) => { booking.receivingAddressId = +e.target.value; booking.receivingAddress = e.currentTarget.selectedOptions[0].innerText }}
                             name='receivingCity' 
                             disabled={receivingAddress ? true : false}>
                                <option value={receivingAddress?.addressId}> {
@@ -58,7 +53,6 @@ const RentalOptionForm = ({receivingAddress, car} : Props) => {
                         <Form.Group className="mb-3" >
                             <Form.Label>Returning</Form.Label>
                             <Form.Select
-                            onChange={(e) => { booking.returnAddressId = +e.target.value; booking.returnAddress = e.currentTarget.selectedOptions[0].innerText}}
                             name='returnCity'>
                                 <option>Choose city</option>
                                 {exampleAddresses.map((x, index) => (
@@ -75,13 +69,17 @@ const RentalOptionForm = ({receivingAddress, car} : Props) => {
                         <Col xs={6}>
                             <Form.Group className="mb-3" >
                                 <Form.Label >Date and time of serving</Form.Label>
-                                <Form.Control onChange={(e) => booking.startDate = new Date(e.target.value)} type="date" name='servingDate'/>
+                                <Form.Control 
+                                type="date" 
+                                name='servingDate'/>
                             </Form.Group>
                         </Col>
                         <Col xs={6}>
                             <Form.Group className="mb-3" >
                                 <Form.Label>Date and time of returning</Form.Label>
-                                <Form.Control onChange={(e) => booking.endDate = new Date(e.target.value)} type="date" name='returnDate'/>
+                                <Form.Control 
+                                type="date" 
+                                name='returnDate'/>
                             </Form.Group>
                         </Col>
                     </Row>
