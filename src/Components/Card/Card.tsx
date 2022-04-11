@@ -3,10 +3,12 @@ import '../Card/Card.css'
 
 type Props = {
     onClick?: React.MouseEventHandler<HTMLDivElement> | undefined,
-    children : any
+    children : any,
+    className?: any,
+    pointer?: boolean
 }
 
-const Card = ({ children, onClick } : Props) => {
+const Card = ({ children, onClick, className, pointer } : Props) => {
     let subComponentList = Object.keys(Card);
 
     let subComponents = subComponentList.map((key) => {
@@ -17,14 +19,14 @@ const Card = ({ children, onClick } : Props) => {
 
     return (
         <>
-            <div onClick={onClick} className='card-info'>
+            <div onClick={onClick} className={className + ' card-info'} style={pointer ? {cursor:'pointer'}:{}}>
                 {subComponents.map((component) => component)}
             </div>
         </>
     );
 };
 
-const Header = (props : any) => <div className='card-info-header'><p style={{fontSize:'24px', margin:'0'}}><b>{props.children}</b></p></div>;
+const Header = (props : any) => <div className='card-info-header'><b>{props.children}</b></div>;
 Card.Header = Header;
 
 const Body = (props : any) => <div className='card-info-body'>{props.children}</div>;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useRouteMatch, useHistory } from "react-router-dom";
-import { Container, Row, Col, Badge, Image, Button, Modal } from 'react-bootstrap'
 import { getAutoParkById } from '../../Api/autoParkApi';
 import CarView from '../../Views/CarView';
 import Card from '../../Components/Card/Card';
@@ -12,22 +11,21 @@ import RentalOptionForm from '../../Components/Booking/RentalOptionForm/RentalOp
 import { deleteCar } from '../../Api/carApi';
 import FuelType from '../../Enums/FuelType';
 import Geerbox from '../../Enums/Geerbox';
+import { Tag, Button, Col, Divider, Row, Image, Modal, Space} from 'antd';
+import '../AutoPark/AutoPark.css'
 const AutoPark = () => {
     const [cars, setCars] = useState<CarView[]>([])
     const [autoPark, setAutoPark] = useState<AutoParkView>(new AutoParkView())
-    const [show, setShow] = useState<boolean>(false)
+    const [showModal, setShow] = useState<boolean>(false)
     const [selectedCar, setSeletedCar] = useState<CarView>(new CarView())
     const { id } = useParams<{id : string}>();
 
     useEffect(() => {
-        fetchAutoParkById(+id)
+        getAutoParkById(id).then(res => {
+            setAutoPark(res.data);
+            setCars(res.data.cars)
+        })
     }, [])
-
-    const fetchAutoParkById = async (id: number) => {
-        const autoPark = (await getAutoParkById(id)).data
-        setCars(autoPark.cars)
-        setAutoPark(autoPark)
-    }
 
     const handleDelete = async (id: number) => {
         await deleteCar(id)
@@ -37,26 +35,37 @@ const AutoPark = () => {
     return (
         <>
             <h1 style={{margin:'1rem'}}>Car rental in {autoPark.address.city}</h1> 
-            <Container>
+            <div className='autopark-container'>
                 <Row>
-                    <Col xs={4}>
+                    <Col span={6}>
                     </Col>
-                    <Col xs={8}>
-                        <Row>
+                    <Col span={18}>
+                        <Row gutter={[16, 24]}>
                             {cars.map(x => (
-                                <Col md={12} lg={6} key={x.carId}>
-                                    <Card>
+                                <Col xxl={6} xl={8} lg={12} md={12} sm={12} xs={24}>
+                                    <Card pointer={true}>
                                         <Card.Header>
-                                            {x.brand} {x.model}
-                                            <Button onClick={() => handleDelete(x.carId)} variant='danger'>Delete</Button>
+                                            <h2>{x.brand} {x.model}</h2>
                                         </Card.Header>
                                         <Card.Body>
-                                            <p style={{fontSize:'12px', margin:'0'}}>{x.engineVolume} / {FuelType[x.fuelType]} / {Geerbox[x.geerbox]}</p>
-                                            <Badge bg="secondary">{Class[x.class]}</Badge>
-                                            <Image className={'car-image'} src={carPic}></Image>
+                                        {x.engineVolume} / {FuelType[x.fuelType]} / {Geerbox[x.geerbox]}
+                                            <div>
+                                                <Tag color='orange'>
+                                                    {Class[x.class]}
+                                                </Tag>
+                                            </div>
+                                            <Image className='car-image' preview={false} src={carPic}/>
                                             <h1><b>{x.carRentInfo.pricePerDay}$</b></h1>
-                                            <h6>for a day</h6>
-                                            <Button onClick={() => {setShow(!show); setSeletedCar(x)}} style={{margin:'2rem 0 1rem 0'}} variant="secondary" size="lg">Book the car</Button>{' '}
+                                            <h5>for a day</h5>
+                                            <Space>
+                                                <Button 
+                                                className='main-btn'
+                                                onClick={() => {setShow(true); setSeletedCar(x)}} 
+                                                type='primary'
+                                                size='large'>
+                                                    Book the car
+                                                </Button>
+                                            </Space>
                                         </Card.Body>
                                     </Card>
                                 </Col>
@@ -64,16 +73,17 @@ const AutoPark = () => {
                         </Row>
                     </Col>
                 </Row>
-            </Container>
-            <Modal show={show} onHide={() => setShow(!show)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Car booking</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <RentalOptionForm 
-                    receivingAddress={autoPark.address}
-                    car={selectedCar}/>
-                </Modal.Body>
+            </div>
+            <Modal 
+            maskStyle={{backgroundColor:'rgba(122,122,122,0.5)'}}
+            footer={null}
+            visible={showModal} 
+            title='Car booking'
+            onOk={() => setShow(false)}
+            onCancel={() => setShow(false)}>
+                <RentalOptionForm 
+                receivingAddress={autoPark.address}
+                car={selectedCar}/>
             </Modal>
         </>
     )

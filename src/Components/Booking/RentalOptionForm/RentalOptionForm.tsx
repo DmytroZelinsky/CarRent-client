@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
-import { Container, Form, Row, Col, Button } from 'react-bootstrap'
+import { Button, Form, Select, DatePicker } from 'antd'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import BookingDTO from '../../../DTOs/BookingDTO'
 import AddressView from '../../../Views/AddressView'
 import CarView from '../../../Views/CarView'
+import { getAllAutoParks } from '../../../Api/autoParkApi'
+
+const { RangePicker } = DatePicker;
 
 type Props = {
     receivingAddress? : AddressView
@@ -11,83 +14,96 @@ type Props = {
 }
 
 const RentalOptionForm = ({receivingAddress, car} : Props) => {
+    useEffect(() => {
+        getAllAutoParks().then(res => {
+            setReturnAddresses(res.data.map(x => x.address))
+            receivingAddress 
+            ? setReceivingAddresses([...receivingAddresses, receivingAddress]) 
+            : setReceivingAddresses(res.data.map(x => x.address))
+        })
+    }, [])
+    
     const history = useHistory()
-
     const [booking, setBooking] = useState<BookingDTO>({ 
-        receivingAddressId : receivingAddress?.addressId
+        receivingAddressId : receivingAddress?.addressId,
+        carId: car?.carId
     } as BookingDTO) 
+    const [returnAddresses, setReturnAddresses] = useState<Array<AddressView>>(new Array<AddressView>());
+    const [receivingAddresses, setReceivingAddresses] = useState<Array<AddressView>>(new Array<AddressView>());
 
-    const exampleAddresses : AddressView[] = 
-    [
-        { city:'Lviv', addressName:'Bandera', addressNumber:5, postCode:12345, addressId:5} as AddressView,
-        { city:'Kharkiv', addressName:'Volnutsk', addressNumber:6, postCode:23412, addressId:6} as AddressView,
-        { city:'Dnipro', addressName:'Bandera', addressNumber:7, postCode:45436, addressId:7} as AddressView
-    ]
 
-    const handleSubmit = (e : React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const onSubmit = (e : React.FormEvent<HTMLFormElement>) => {
         history.push({
             pathname: '/booking',
-            state: booking,
-          });
+            state: {
+                booking,
+                car,
+                receivingAddress: receivingAddresses.find(x => x.addressId === booking.receivingAddressId),
+                returnAddress: returnAddresses.find(x => x.addressId === booking.returnAddressId)
+        }});
     }
 
     return (
         <>
-            <Form onSubmit={(e) => handleSubmit(e)}>
-                <Container fluid>
-                    <Row>
-                        <Form.Group className="mb-3" >
-                            <Form.Label>Receiving</Form.Label>
-                            <Form.Select 
-                            name='receivingCity' 
-                            disabled={receivingAddress ? true : false}>
-                               <option value={receivingAddress?.addressId}> {
-                                receivingAddress !== undefined ? 
-                                receivingAddress.city + ', ' + 
-                                receivingAddress.addressName + ', ' +
-                                receivingAddress.addressNumber : undefined} 
-                                </option>
-                            </Form.Select>
-                        </Form.Group>
-                        <Form.Group className="mb-3" >
-                            <Form.Label>Returning</Form.Label>
-                            <Form.Select
-                            name='returnCity'>
-                                <option>Choose city</option>
-                                {exampleAddresses.map((x, index) => (
-                                    <option value={x.addressId}>{
-                                        x.city + ', ' + 
-                                        x.addressName + ', ' +
-                                        x.addressNumber}
-                                    </option>
-                                ))}
-                            </Form.Select>
-                        </Form.Group>
-                    </Row>
-                    <Row>
-                        <Col xs={6}>
-                            <Form.Group className="mb-3" >
-                                <Form.Label >Date and time of serving</Form.Label>
-                                <Form.Control 
-                                type="date" 
-                                name='servingDate'/>
-                            </Form.Group>
-                        </Col>
-                        <Col xs={6}>
-                            <Form.Group className="mb-3" >
-                                <Form.Label>Date and time of returning</Form.Label>
-                                <Form.Control 
-                                type="date" 
-                                name='returnDate'/>
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    <Button variant="secondary" type="submit" >
+                <Form onFinish={onSubmit}>
+                    <Form.Item>
+                        <Select
+                        defaultValue={booking.receivingAddressId}
+                        size='large'  
+                        showSearch
+                        placeholder="Receiving address"
+                        optionFilterProp="children"
+                        filterOption={(input, option) => option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                        filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
+                        >
+                            {receivingAddresses.map((receivingAddress) => (
+                            <Select.Option value={receivingAddress.addressId}>{
+                            receivingAddress.city + ', ' + 
+                            receivingAddress.addressName + ', ' +
+                            receivingAddress.addressNumber}
+                            </Select.Option >
+                            ))}
+                            
+                        </Select>
+                    </Form.Item>
+                    <Form.Item name='returnAddress' rules={[{required: true}]}>
+                        <Select
+                        size='large'
+                        onChange={value => booking.returnAddressId = value as number}
+                        showSearch
+                        placeholder="Return address"
+                        optionFilterProp="children"
+                        filterOption={(input, option) => option?.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                        filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
+                        >
+                            {returnAddresses.map((returnAddess) => (
+                            <Select.Option value={returnAddess.addressId}>{
+                            returnAddess.city + ', ' + 
+                            returnAddess.addressName + ', ' +
+                            returnAddess.addressNumber}
+                            </Select.Option >
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item name='date' rules={[{required: true}]}>
+                        <RangePicker
+                        format="YYYY-MM-DD HH:mm"
+                        size='large'
+                        style={{ width: "100%" }}
+                        showTime
+                        allowClear={false}
+                        onChange={moments => {
+                            booking.startDate = moments![0]?.toDate()!; 
+                            booking.endDate = moments![1]?.toDate()!
+                        }}
+                        />
+                    </Form.Item>
+
+                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                        <Button type="primary" htmlType="submit">
                         Submit
-                    </Button>
-                </Container>
-               
+                        </Button>
+                    </Form.Item>
             </Form>  
         </>
     )

@@ -1,42 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
-import { Container, Row, Col } from 'react-bootstrap';
 import Card from '../../Components/Card/Card'
 import { getAllAutoParks } from '../../Api/autoParkApi';
 import AutoParkView from '../../Views/AutoParkView';
+import { Col, Row } from 'antd';
+import '../AutoParks/AutoParks.css'
 const AutoParks = () => {
 
 
     const [autoParks, setAutoParks] = useState<AutoParkView[]>([]);
     const history = useHistory()
     useEffect(() => {
-        fetchAllAutoParks()
+        getAllAutoParks().then(res => setAutoParks(res.data))
     },[])
 
-    const fetchAllAutoParks = async () =>{
-        const res = (await getAllAutoParks()).data
-        setAutoParks(res)
-    }
-    
     return (
         <>
-            <Container>
-                <Row>
+            <div className='autoparks-container'>
+                <Row gutter={[16, 24]}>
                     {autoParks.map(x => (
-                        <Col lg={3} md={4} sm={6} xs={12}>
-                            <Card onClick={() => history.push(`autopark/${x.autoParkId}`)}>
+                        <Col xxl={6} xl={8} lg={12} md={12} sm={12} xs={24}>
+                            <Card onClick={() => history.push(`autopark/${x.autoParkId}`)} pointer={true}>
                                 <Card.Header>
                                     {x.address.city}
+                                        
                                 </Card.Header>
                                 <Card.Body>
-                                    {x.address.addressName}, {x.address.addressNumber} <br/>
+                                    {x.address.addressName}, {x.address.addressNumber} 
+                                    <br/>
                                     Current car count : {x.currentCarCount}
                                 </Card.Body>
                             </Card>
                         </Col>
                     ))}
                 </Row>
-            </Container>
+                    
+            </div>
+               
         </>
     )
 }

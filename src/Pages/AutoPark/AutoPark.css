@@ -1,6 +1,101 @@
 .car-image {
     height: 14rem;
     width: 18rem;
-    display: block;
+    display: block !important;
     margin: 0 auto;
 }
+
+.autopark-container {
+    margin: 0 15%;
+}
+
+/* .main-btn {
+    background-color: var(--main-btn-color) !important;
+    border: 1px solid var(--outline-color) !important;
+}
+
+.main-btn:hover {
+    background-color: var(--main-btn-hover-color) !important;
+} */
+/* 
+.ant-modal-header {
+    background-color: var(--main-header-background-color) !important;
+    border-bottom: 1px solid var(--outline-color) !important;
+}
+
+.ant-modal-content {
+    background-color: var(--main-content-background-color) !important;
+    border: 1px solid var(--outline-color) !important;
+
+}
+
+.ant-modal-footer {
+    border-top: 1px solid var(--outline-color) !important;
+}
+
+.ant-divider::after, .ant-divider::before {
+    border-top: 1px solid var(--outline-color) !important;
+}
+
+.ant-select-selector, .ant-picker-range, .ant-picker-panel{
+    background-color: var(--main-body-background-color) !important;
+    color: var(--main-text-color) !important;
+    border: 1px solid var(--outline-color) !important;
+}
+
+.ant-picker-footer{
+    background-color: var(--main-body-background-color) !important;
+    color: var(--main-text-color) !important;
+    border: 1px solid var(--outline-color) !important;
+    border-top: 0 !important;
+}
+
+.ant-picker-range .ant-picker-active-bar {
+    background-color: var(--accent-color) !important;
+}
+
+.ant-picker-header {
+    border-bottom: 1px solid var(--outline-color) !important;
+}
+.ant-picker-datetime-panel .ant-picker-time-panel, .ant-picker-time-panel-column:not(:first-child) {
+    border-left: 1px solid var(--outline-color) !important;
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+    border: 1px solid var(--accent-color) !important;
+}
+
+.ant-picker-time-panel-column > li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
+    background: var(--main-btn-color) !important;
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+    background: var(--accent-color) !important;
+}
+
+.ant-tag {
+    color: var(--accent-color) !important;
+}
+
+.ant-select-dropdown{
+    background-color: var(--main-content-background-color) !important;
+    border-radius: 0 !important;
+    box-shadow: rgba(255, 255, 255, 0.15) 0px 5px 15px !important;
+}
+.ant-select-item:hover{
+    background-color: var(--main-btn-hover-color) !important;
+}
+
+.ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+    background-color: var(--main-btn-hover-color) !important;
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: var(--main-btn-color) !important;
+}
+
+.rc-virtual-list-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.65) !important;
+}
+ */
+
