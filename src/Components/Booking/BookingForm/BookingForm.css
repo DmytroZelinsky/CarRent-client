@@ -1,5 +1,8 @@
 .chosen-car-display {
-    padding: 0.5rem 1rem;
+    height: 100%;    
+    background-color: rgb(243, 244, 255);
+    outline: 2px dashed rgb(89, 37, 232);
+
 }
 
 .options-container {
@@ -7,9 +10,13 @@
     width: 100% !important;
 }
 
-input:checked + .option-check-box-label div {
-    background-color: rgb(84, 120, 219);
-    color:azure !important;
+input:checked + .option-check-box-label{
+    outline: 2px dashed rgb(89, 37, 232);
+}
+
+input:checked + .option-check-box-label div{
+    color:rgb(37, 121, 232) !important;
+    background-color: rgb(243, 244, 255);
 }
 
 .option-check-box-label {
@@ -25,12 +32,10 @@ input:checked + .option-check-box-label div {
     position: absolute;
     display: none;
 }
-.option-item .card-info-body {
-    padding: 0 !important;
-}
+
 .option-item {
-    margin: 0.5rem 0.5rem;
     display: block;
+    border: 1px dashed grey;
 }
 
 .booking-container {
@@ -41,6 +46,7 @@ input:checked + .option-check-box-label div {
     padding: 0 10px;
     background-color: var(--main-content-background-color);
     border-radius: 5px;
+    padding: 1rem;
 }
 
 .headline {
@@ -53,9 +59,30 @@ input:checked + .option-check-box-label div {
 }
 
 .rental-option-display {
-    margin: 0.5rem;
+    background-color: rgb(243, 244, 255);
+    outline: 2px dashed rgb(89, 37, 232);
 }
 
-.chosen-car-display {
-    margin: 0.5rem;
+.ant-picker {
+    width: 100% !important;
+}
+
+.summary {
+    padding: 1rem 2rem;
+    border: 1px solid rgb(45, 184, 45);
+    border-radius: 3px;
+    background-color: rgb(235, 255, 235);
+    width: 100%;
+}
+
+.booking-submit-btn {
+    width: 100%;
+    border: 0;
+    height: 3rem;
+    background-color: rgb(36, 176, 36);
+    cursor: pointer;
+    border-radius: 3px;
+    color:aliceblue;
+    font-size: 20px;
+    margin-top: 1rem;
 }

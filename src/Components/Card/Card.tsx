@@ -5,10 +5,12 @@ type Props = {
     onClick?: React.MouseEventHandler<HTMLDivElement> | undefined,
     children : any,
     className?: any,
-    pointer?: boolean
+    pointer?: boolean,
+    style?: React.CSSProperties,
+    bodyStyle?: React.CSSProperties,
 }
 
-const Card = ({ children, onClick, className, pointer } : Props) => {
+const Card = ({ children, onClick, className, pointer, style } : Props) => {
     let subComponentList = Object.keys(Card);
 
     let subComponents = subComponentList.map((key) => {
@@ -19,7 +21,7 @@ const Card = ({ children, onClick, className, pointer } : Props) => {
 
     return (
         <>
-            <div onClick={onClick} className={className + ' card-info'} style={pointer ? {cursor:'pointer'}:{}}>
+            <div onClick={onClick} className={className + ' card-info'}  style={style}>
                 {subComponents.map((component) => component)}
             </div>
         </>
@@ -29,7 +31,7 @@ const Card = ({ children, onClick, className, pointer } : Props) => {
 const Header = (props : any) => <div className='card-info-header'><b>{props.children}</b></div>;
 Card.Header = Header;
 
-const Body = (props : any) => <div className='card-info-body'>{props.children}</div>;
+const Body = (props : any) => <div style={props.style} className='card-info-body'>{props.children}</div>;
 Card.Body = Body;
 
 const Footer = (props: any) => <div className='card-footer'>{props.children}</div>;

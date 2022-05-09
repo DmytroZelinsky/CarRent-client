@@ -1,12 +1,7 @@
-.car-image {
-    height: 14rem;
-    width: 18rem;
-    display: block !important;
-    margin: 0 auto;
-}
-
 .autopark-container {
-    margin: 0 15%;
+    margin: 0 5%;
+    background-color: var(--main-content-background-color);
+    padding: 13px;
 }
 
 /* .main-btn {

@@ -10,12 +10,13 @@ import AutoPark from './Pages/AutoPark/AutoPark';
 import Booking from './Pages/Booking/Booking';
 import Home from './Pages/Home/Home';
 import 'antd/dist/antd.css';
+import Bookingcheck from './Pages/Bookingcheck/Bookingcheck';
 function App() {
   return (
     <Router>
       <HeaderContainer/>
         <Switch>
-        <Route exact path='/'>
+          <Route exact path='/'>
             <Home/>
           </Route>
           <Route exact path='/home'>
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route exact path='/booking'>
             <Booking/>
+          </Route>
+          <Route exact path='/bookingcheck'>
+            <Bookingcheck/>
           </Route>
         </Switch>
     </Router>

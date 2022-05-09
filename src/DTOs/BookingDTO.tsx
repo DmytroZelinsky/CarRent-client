@@ -1,4 +1,5 @@
 import BillingDTO from "./BillingDTO";
+import ClientDTO from "./ClientDTO";
 
 export default class BookingDTO {
     startDate : Date;
@@ -6,7 +7,7 @@ export default class BookingDTO {
     receivingAddressId: number;
     returnAddressId: number;
     carId : number;
-    clientId : number;
+    client: ClientDTO;
     billing : BillingDTO
     clientOptionIds: Array<number>;
 
@@ -14,7 +15,7 @@ export default class BookingDTO {
         this.startDate = new Date();
         this.endDate = new Date();
         this.carId = 0;
-        this.clientId = 0;
+        this.client = new ClientDTO();
         this.receivingAddressId = 0;
         this.returnAddressId = 0;
         this.billing = new BillingDTO();
